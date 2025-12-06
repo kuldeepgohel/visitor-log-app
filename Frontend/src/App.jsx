@@ -8,10 +8,14 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  function genRendomId() {
-    return "v_" + Math.random().toString(36).slice(2, 9);
+  // function genRendomId() {
+  //   return "v_" + Math.random().toString(36).slice(2, 9);
+  // }
+  function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "/login";
   }
-
   async function handleGenerate(e) {
     e?.preventDefault();
     setMessage("");
@@ -47,6 +51,22 @@ function App() {
   return (
     <>
       <div className="min-h-screen flex items-center justify-center p-6 bg-linear-to-b from-[#07101a] via-[#081324] to-[#06111a] text-white">
+        {/* TOP NAVBAR */}
+        <div className="absolute top-4 right-6 flex items-center gap-4">
+          <span className="text-sm text-gray-300">
+            {localStorage.getItem("user")
+              ? JSON.parse(localStorage.getItem("user")).email
+              : ""}
+          </span>
+
+          <button
+            onClick={logout}
+            className="px-4 py-2 rounded-xl bg-white/10 text-[#6EE7B7] font-semibold hover:bg-white/20"
+          >
+            Logout
+          </button>
+        </div>
+
         <div className="max-w-5xl w-full grid md:grid-cols-2 gap-10">
           {/* LEFT PANEL */}
           <div className="p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-xl">
@@ -170,8 +190,7 @@ function App() {
             )}
 
             <p className="mt-6 text-xs text-gray-400">
-              QR contains{" "}
-              <span className="text-[#6EE7B7]">visitor:{"id"}</span>
+              QR contains <span className="text-[#6EE7B7]">visitor:{"id"}</span>
             </p>
           </div>
         </div>

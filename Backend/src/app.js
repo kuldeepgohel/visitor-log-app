@@ -3,6 +3,7 @@ const cors = require('cors');
 
 const qrRoutes = require('./routes/qrRoutes');
 const checkinRoutes = require('./routes/checkinRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 app.use(cors());
@@ -10,6 +11,7 @@ app.use(express.json());
 
 app.use('/api',qrRoutes);
 app.use('/api',checkinRoutes);
+app.use('/api', authRoutes);
 
 app.get('/',(req,res)=> {
     res.send("visitor log API is running")
